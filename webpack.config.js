@@ -1,27 +1,36 @@
 const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-    mode: 'development',
+    mode: 'development', 
     entry: './src/index.js',
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
-        clean: true,
-        publicPath: '/', // This allows the server to resolve paths correctly
+        publicPath: '/',
     },
     module: {
         rules: [
             {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader'], // This handles CSS
+                use: [
+                    MiniCssExtractPlugin.loader, 
+                    'css-loader',
+                ],
             },
         ],
     },
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: 'styles.css', 
+        }),
+    ],
     devServer: {
         static: {
-            directory: path.join(__dirname, 'public'), // Serves the public folder
+            directory: path.join(__dirname, 'dist'),
         },
         compress: true,
         port: 3003,
+        historyApiFallback: true,
     },
 };
