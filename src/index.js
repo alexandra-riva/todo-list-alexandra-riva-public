@@ -11,7 +11,10 @@ function renderTodos() {
         const todoItem = document.createElement('li');
         todoItem.className = 'todo-item';
         todoItem.innerHTML = `
-            <span>${todo}</span>
+            <span>${todo.title}</span>
+            <span>${todo.description}</span>
+            <span>${todo.dueDate}</span>
+            <span>${todo.priority}</span>
             <button data-index="${index}">Delete</button>
         `;
         todoList.appendChild(todoItem);
@@ -29,10 +32,18 @@ function renderTodos() {
 
 document.getElementById('add-todo').addEventListener('click', () => {
     const title = document.getElementById('todo-title').value;
+    const description = document.getElementById('todo-description').value; 
+    const dueDate = document.getElementById('todo-due-date').value; 
+    const priority = document.getElementById('todo-priority').value; 
+
     if (title) {
-        todos.push(title);
+        const todo = { title, description, dueDate, priority };
+        todos.push(todo);
         saveTodos(todos);
-        document.getElementById('todo-title').value = ''; 
+        document.getElementById('todo-title').value = '';
+        document.getElementById('todo-description').value = ''; 
+        document.getElementById('todo-due-date').value = ''; 
+        document.getElementById('todo-priority').value = '';
         renderTodos();
     }
 });
