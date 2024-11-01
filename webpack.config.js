@@ -1,31 +1,27 @@
 const path = require('path');
 
 module.exports = {
-    entry: './src/index.js', // Your main JavaScript file
+    mode: 'development',
+    entry: './src/index.js',
     output: {
-        filename: 'bundle.js', // Output bundle file
-        path: path.resolve(__dirname, 'dist'), // Output directory
+        filename: 'bundle.js',
+        path: path.resolve(__dirname, 'dist'),
+        clean: true,
+        publicPath: '/', // This allows the server to resolve paths correctly
     },
     module: {
         rules: [
             {
-                test: /\.css$/, // Regex for CSS files
-                use: ['style-loader', 'css-loader'], // Loaders for CSS
-            },
-            {
-                test: /\.m?js$/, // Regex for JavaScript files
-                exclude: /node_modules/, // Exclude node_modules
-                use: {
-                    loader: 'babel-loader', // Use Babel loader
-                    options: {
-                        presets: ['@babel/preset-env'], // Babel preset
-                    },
-                },
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader'], // This handles CSS
             },
         ],
     },
-    resolve: {
-        extensions: ['.js'], // File extensions to resolve
+    devServer: {
+        static: {
+            directory: path.join(__dirname, 'public'), // Serves the public folder
+        },
+        compress: true,
+        port: 3003,
     },
-    mode: 'development', // Set mode
 };
