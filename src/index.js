@@ -32,10 +32,10 @@ document.getElementById('add-todo').addEventListener('click', () => {
     if (title) {
         todos.push(title);
         saveTodos(todos);
-        document.getElementById('todo-title').value = '';
+        document.getElementById('todo-title').value = ''; 
         renderTodos();
     }
 });
 
-// Initial render of todos
+
 renderTodos();
